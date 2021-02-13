@@ -5,6 +5,7 @@
  */
 package arrayserial;
 //importo librerias conforme hago el codigo xd
+import java.io.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.util.Scanner;
@@ -13,7 +14,7 @@ import java.util.Scanner;
  *
  * @author juice_pjuorme
  */
-public class Persona {
+public class Persona implements Serializable{
     //la clase persona tieneestos atributos
     String nombre, edad;
     ArrayList<Persona> list;
@@ -87,10 +88,14 @@ public class Persona {
        Scanner entrada = new Scanner(System.in);
        int opcion;
        System.out.println("CRUD");
-       opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la opcion de la operacion a realizar"+ "\n"
-               + "1.Eliminar un registro"
+       opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la opción correspondiente a la operación a realizar"+ "\n"
+               + "1. Eliminar un registro"
                + "\n"
-               + "2.Actualizar un registro"));
+               + "2. Actualizar un registro"
+               + "\n"
+               + "3. Guardar registros"
+               + "\n"
+               + "4. Recuperar Registros"));
        
        switch (opcion) {
            case 1:
@@ -132,6 +137,11 @@ public class Persona {
                 break;
            default:
                throw new AssertionError();
+               
+           case 3:
+               serializar();
+           case 4:
+               leer();
        }
    }
    //metodo que busca a una persona dentro de la lista con base en uno de sus atributos
@@ -162,5 +172,49 @@ public class Persona {
         list.add(actualizada);
     }
     
+    public void serializar(){
+         try
+        {
+            FileOutputStream fos = new FileOutputStream("datosPersonas");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(list);
+            oos.close();
+            fos.close();
+        } 
+        catch (IOException ioe) 
+        {
+            ioe.printStackTrace();
+        }
+    }
     
+    public void leer(){
+        try
+        {
+            FileInputStream fis = new FileInputStream("datosPersonas");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+ 
+            list = (ArrayList) ois.readObject();
+ 
+            ois.close();
+            fis.close();
+        } 
+        catch (IOException ioe) 
+        {
+            ioe.printStackTrace();
+            return;
+        } 
+        catch (ClassNotFoundException c) 
+        {
+            System.out.println("Class not found");
+            c.printStackTrace();
+            return;
+        }
+         
+        //Verify list data
+        for (Persona employee : list) {
+            System.out.println(employee);
+        }
+    }
 }
+    
+

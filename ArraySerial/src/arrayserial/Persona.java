@@ -41,6 +41,14 @@ public class Persona {
     public void setEdad(String edad) {
         this.edad = edad;
     }
+
+    public ArrayList<Persona> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<Persona> list) {
+        this.list = list;
+    }
     
     @Override
    public String toString() {

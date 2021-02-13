@@ -5,6 +5,9 @@
  */
 package arrayserial;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author juice_pjuorme
@@ -17,6 +20,22 @@ public class Interfaz extends javax.swing.JFrame {
     public Interfaz() {
         p=new Persona();
         initComponents();
+    }
+    
+    public void addRowToJTable(){
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        ArrayList<Persona> list = p.getList();
+        Object rowData[] = new Object [2];
+        for(int i=0; i<list.size();i++){
+            rowData[0]=list.get(i).nombre;
+            rowData[1]=list.get(i).edad;
+            model.addRow(rowData);
+        }
+    }
+    
+    public void limpiarTabla(){
+        
     }
 
     /**
@@ -39,6 +58,10 @@ public class Interfaz extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(390, 366));
@@ -55,7 +78,7 @@ public class Interfaz extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addComponent(jLabel1)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(432, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,6 +139,33 @@ public class Interfaz extends javax.swing.JFrame {
         jPanel2.add(jLabel4);
         jLabel4.setBounds(0, 0, 390, 280);
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Edad"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel2.add(jScrollPane1);
+        jScrollPane1.setBounds(400, 100, 310, 170);
+
+        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jLabel5.setText("REGISTROS");
+        jPanel2.add(jLabel5);
+        jLabel5.setBounds(500, 10, 90, 21);
+
+        jButton4.setText("Actualizar Tabla");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton4);
+        jButton4.setBounds(410, 60, 120, 23);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,6 +200,11 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
         p.menucontrol();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        addRowToJTable();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     public void limpiar(){
         nombreTxt.setText(null);
@@ -196,12 +251,16 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     public javax.swing.JTextField nombreTxt;
     // End of variables declaration//GEN-END:variables
 }

@@ -86,11 +86,11 @@ public class Persona {
    public void menucontrol(){
        Scanner entrada = new Scanner(System.in);
        int opcion;
-       System.out.println("Seleccione la operación a realizar:"
-               + "\n"
-               + "1.Eliminar un registro");
+       System.out.println("CRUD");
        opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la opcion de la operacion a realizar"+ "\n"
-               + "1.Eliminar un registro"));
+               + "1.Eliminar un registro"
+               + "\n"
+               + "2.Actualizar un registro"));
        
        switch (opcion) {
            case 1:
@@ -105,6 +105,31 @@ public class Persona {
                    System.out.println("Error: "+e);
                }
                break;
+           case 2:
+               String nombreActualizar, nuevoNombre, nuevaEdad;
+                nombreActualizar=JOptionPane.showInputDialog(null, "Ingrese el nombre de la persona a actualizar");
+                Persona personaBuscar = buscarPersona(nombreActualizar);
+                
+                //visualizamos la informacion de esa persona
+                
+                System.out.println("La informacion de la persona es:\n"
+                        + "ID: " + "\n"
+                        + "Nombre: " + personaBuscar.getNombre()+"\n"
+                        + "Edad: "+ personaBuscar.getEdad());
+                
+                //ahora vamos a cambiar los datos
+                System.out.println("Ingresa el nuevo nombre: ");
+                nuevoNombre = JOptionPane.showInputDialog(null, "Ingrese el nuevo nombre");
+                System.out.println("Ingresa la nueva edad: ");
+                nuevaEdad = JOptionPane.showInputDialog(null, "Ingrese la nueva Edad");
+                
+                //con set esos nuevos parametros
+                personaBuscar.setNombre(nuevoNombre);
+                personaBuscar.setEdad(nuevaEdad);
+                
+                //actualizo mi lista
+                actualizarPersona(personaBuscar);
+                break;
            default:
                throw new AssertionError();
        }
@@ -125,6 +150,16 @@ public class Persona {
    //metodo que elimina elementos de la lista (f)
     public void eliminarPersona(Persona eliminar){
         list.remove(eliminar);
+    }
+    public void actualizarPersona(Persona actualizada){
+        Persona actualizar = buscarPersona(actualizada.getNombre());
+        //ya lo busco y lo encontro
+        
+        //primero debo de removerlo
+        list.remove(actualizar);
+        
+        //lo volvemos a meter
+        list.add(actualizada);
     }
     
     

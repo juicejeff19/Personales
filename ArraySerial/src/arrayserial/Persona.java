@@ -101,7 +101,6 @@ public class Persona implements Serializable{
            case 1:
                try{
                String nombreEliminar;
-               System.out.println("Ingrese el nombre de la persona a eliminar del registro");
                nombreEliminar = JOptionPane.showInputDialog(null, "Ingrese el nombre de la persona a eliminar");
                Persona personaeliminar = buscarPersona(nombreEliminar);
                eliminarPersona(personaeliminar);
@@ -136,8 +135,7 @@ public class Persona implements Serializable{
                 actualizarPersona(personaBuscar);
                 break;
            default:
-               throw new AssertionError();
-               
+               throw new AssertionError();  
            case 3:
                serializar();
            case 4:

@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
  * @author juice_pjuorme
  */
 public class Interfaz extends javax.swing.JFrame {
+    //objeto global de persona. IMPORTANTE: TIENE QUE SER GLOBAL PARA QUE LA LISTA NO SE SOBREESCRIBA.
     Persona p;
     /**
      * Creates new form Interfaz
@@ -21,7 +22,7 @@ public class Interfaz extends javax.swing.JFrame {
         p=new Persona();
         initComponents();
     }
-    
+    //actualizar la jTable
     public void addRowToJTable(){
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
@@ -34,10 +35,6 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }
     
-    public void limpiarTabla(){
-        
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

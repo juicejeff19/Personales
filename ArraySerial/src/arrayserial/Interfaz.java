@@ -28,10 +28,12 @@ public class Interfaz extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         ArrayList<Persona> list = p.getList();
-        Object rowData[] = new Object [2];
+        Object rowData[] = new Object [4];
         for(int i=0; i<list.size();i++){
             rowData[0]=list.get(i).nombre;
             rowData[1]=list.get(i).edad;
+            rowData[2]=list.get(i).puesto;
+            rowData[3]=list.get(i).sueldo;
             model.addRow(rowData);
         }
     }
@@ -57,6 +59,10 @@ public class Interfaz extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        puestoTxt = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        sueldoTxt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -101,7 +107,7 @@ public class Interfaz extends javax.swing.JFrame {
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(120, 120, 120)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addContainerGap(264, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,16 +124,16 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jLabel2.setText("NOMBRE: ");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(26, 52, 73, 21);
+        jLabel2.setBounds(10, 60, 73, 21);
 
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        jLabel3.setText("EDAD: ");
+        jLabel3.setText("SUELDO:");
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(26, 119, 51, 21);
+        jLabel3.setBounds(140, 120, 80, 21);
         jPanel2.add(nombreTxt);
-        nombreTxt.setBounds(103, 54, 144, 20);
+        nombreTxt.setBounds(80, 60, 144, 20);
         jPanel2.add(edadTxt);
-        edadTxt.setBounds(87, 121, 82, 20);
+        edadTxt.setBounds(60, 120, 40, 20);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("REGISTRAR");
@@ -137,7 +143,7 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton1);
-        jButton1.setBounds(130, 180, 140, 52);
+        jButton1.setBounds(240, 200, 140, 52);
 
         jButton2.setText("Ver en consola");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +163,22 @@ public class Interfaz extends javax.swing.JFrame {
         jPanel2.add(jButton3);
         jButton3.setBounds(273, 10, 100, 23);
 
+        puestoTxt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Desarrollador", "Arquitecto", "Ingeniero de Software", "Ingeniero de Pruebas" }));
+        jPanel2.add(puestoTxt);
+        puestoTxt.setBounds(80, 180, 90, 20);
+
+        jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jLabel6.setText("PUESTO:");
+        jPanel2.add(jLabel6);
+        jLabel6.setBounds(10, 180, 80, 21);
+
+        jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jLabel8.setText("EDAD: ");
+        jPanel2.add(jLabel8);
+        jLabel8.setBounds(10, 120, 51, 21);
+        jPanel2.add(sueldoTxt);
+        sueldoTxt.setBounds(210, 120, 40, 20);
+
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.jpg"))); // NOI18N
         jLabel4.setText("jLabel4");
         jPanel2.add(jLabel4);
@@ -167,13 +189,13 @@ public class Interfaz extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Edad"
+                "Nombre", "Edad", "Puesto", "Sueldo"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
         jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(400, 80, 310, 170);
+        jScrollPane1.setBounds(400, 80, 350, 170);
 
         jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jLabel5.setText("REGISTROS");
@@ -214,7 +236,7 @@ public class Interfaz extends javax.swing.JFrame {
         if(nombreTxt.getText().isEmpty() || edadTxt.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Ojo a la comedia");
         }else{
-        p.recuperar(nombreTxt.getText(), edadTxt.getText());
+        p.recuperar(nombreTxt.getText(), edadTxt.getText(), puestoTxt.getSelectedItem().toString(), sueldoTxt.getText());
         limpiar();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -237,6 +259,7 @@ public class Interfaz extends javax.swing.JFrame {
     public void limpiar(){
         nombreTxt.setText(null);
         edadTxt.setText(null);
+        sueldoTxt.setText(null);
     }
     
     /**
@@ -285,12 +308,16 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     public javax.swing.JTextField nombreTxt;
+    private javax.swing.JComboBox<String> puestoTxt;
+    private javax.swing.JTextField sueldoTxt;
     // End of variables declaration//GEN-END:variables
 }

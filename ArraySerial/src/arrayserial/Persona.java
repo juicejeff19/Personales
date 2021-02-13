@@ -16,16 +16,18 @@ import java.util.Scanner;
  */
 public class Persona implements Serializable{
     //la clase persona tieneestos atributos
-    String nombre, edad;
+    String nombre, edad, puesto, sueldo;
     ArrayList<Persona> list;
 //constructor de clase persona el cual usare para inicializar cosas
     public Persona() {
         list = new ArrayList<>();
     }
 //xd
-    public Persona(String nombre, String edad) {
+    public Persona(String nombre, String edad, String puesto, String sueldo) {
         this.nombre = nombre;
         this.edad = edad;
+        this.puesto = puesto;
+        this.sueldo = sueldo;
     }
 //getters y setters
     public String getNombre() {
@@ -48,6 +50,22 @@ public class Persona implements Serializable{
         return list;
     }
 
+    public String getPuesto() {
+        return puesto;
+    }
+
+    public void setPuesto(String puesto) {
+        this.puesto = puesto;
+    }
+
+    public String getSueldo() {
+        return sueldo;
+    }
+
+    public void setSueldo(String sueldo) {
+        this.sueldo = sueldo;
+    }
+
     public void setList(ArrayList<Persona> list) {
         this.list = list;
     }
@@ -57,13 +75,16 @@ public class Persona implements Serializable{
     @Override
    public String toString() {
         return ("\n"+"************"+"\n"+"Nombre: "+this.getNombre()+ "\n" +
-                    "Edad: "+ this.getEdad()+"\n"+"************"+"\n");
+                    "Edad: "+ this.getEdad()+"\n"+"************"+"\n"
+                + "Puesto: "+ this.getPuesto()+"\n"+"************"+"\n"+"Sueldo: "+this.getSueldo());
    }
    //se ocupa este metodo para recuperar los datos dentro de la clase Interfaz,
    //la cual le dara el texto dentro de los TextField como argumentos
-   public void recuperar(String nombre,String edad){
+   public void recuperar(String nombre,String edad, String puesto, String sueldo){
        setNombre(nombre);
        setEdad(edad);
+       setPuesto(puesto);
+       setSueldo(sueldo);
        agregar();
    }
    //se creara un individuo cada vez que este metodo es llamado, estableciendose asi sus aributos gracias a los setters de la clase
@@ -72,6 +93,8 @@ public class Persona implements Serializable{
        Persona individuo = new Persona();
        individuo.setNombre(nombre);
        individuo.setEdad(edad);
+       individuo.setPuesto(puesto);
+       individuo.setSueldo(sueldo);
        list.add(individuo);
        JOptionPane.showMessageDialog(null, "Registro Exitoso"); 
    }
@@ -110,7 +133,7 @@ public class Persona implements Serializable{
                }
                break;
            case 2:
-               String nombreActualizar, nuevoNombre, nuevaEdad;
+               String nombreActualizar, nuevoNombre, nuevaEdad, nuevoPuesto, nuevoSueldo;
                 nombreActualizar=JOptionPane.showInputDialog(null, "Ingrese el nombre de la persona a actualizar");
                 Persona personaBuscar = buscarPersona(nombreActualizar);
                 
@@ -119,17 +142,23 @@ public class Persona implements Serializable{
                 System.out.println("La informacion de la persona es:\n"
                         + "ID: " + "\n"
                         + "Nombre: " + personaBuscar.getNombre()+"\n"
-                        + "Edad: "+ personaBuscar.getEdad());
+                        + "Edad: "+ personaBuscar.getEdad()+"\n"
+                                + "Puesto: "+personaBuscar.getPuesto()+"\n"
+                                        + "Sueldo: "+personaBuscar.getSueldo());
                 
                 //ahora vamos a cambiar los datos
                 System.out.println("Ingresa el nuevo nombre: ");
                 nuevoNombre = JOptionPane.showInputDialog(null, "Ingrese el nuevo nombre");
                 System.out.println("Ingresa la nueva edad: ");
                 nuevaEdad = JOptionPane.showInputDialog(null, "Ingrese la nueva Edad");
+                nuevoPuesto= JOptionPane.showInputDialog(null, "Ingrese el nuevo puesto");
+                nuevoSueldo = JOptionPane.showInputDialog(null, "Ingrese el nuevo sueldo");
                 
                 //con set esos nuevos parametros
                 personaBuscar.setNombre(nuevoNombre);
                 personaBuscar.setEdad(nuevaEdad);
+                personaBuscar.setPuesto(nuevoPuesto);
+                personaBuscar.setSueldo(nuevoSueldo);
                 
                 //actualizo mi lista
                 actualizarPersona(personaBuscar);
